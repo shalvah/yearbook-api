@@ -7,9 +7,9 @@ return array(
     ],
     "confiironments" => [
         "default_migration_table" => "phinxlog",
-        "default_database" => "development",
-        "production" => [
-            "adapter" => "mysql",
+        "default_database" => env("APP_ENV", "dev"),
+        "prod" => [
+            "adapter" => config("db.conn"),
             "host" => config("db.host"),
             "name" => config("db.name"),
             "user" => config("db.user"),
@@ -17,8 +17,8 @@ return array(
             "port" => config("db.port"),
             "charset" => "utf8"
         ],
-        "development" => [
-            "adapter" => "mysql",
+        "dev" => [
+            "adapter" => config("db.conn"),
             "host" => config("db.host"),
             "name" => config("db.name"),
             "user" => config("db.user"),
