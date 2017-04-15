@@ -29,9 +29,9 @@ class CreateClassmatesTable extends AbstractMigration
     {
         $classmates = $this->table('classmates');
         $classmates->addColumn('email', 'string', ['limit' => 100])
-            ->addColumn('password', 'string', ['limit' => 40])
+            ->addColumn('password', 'string', ['limit' => 200])
             ->addColumn('name', 'string', ['limit' => 90])
-            ->addColumn('is_verified', 'bool', ['default' => 0])
+            ->addColumn('is_verified', 'boolean', ['default' => 0])
 
             ->addColumn('phone', 'string', ['limit' => 17, 'null' => true])
             ->addColumn('photo_url', 'string', ['limit' => 80, 'null' => true])
