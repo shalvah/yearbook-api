@@ -12,6 +12,20 @@ if(!function_exists("env")) {
     }
 }
 
+if(!function_exists("array_except")) {
+    function array_except($array, $exclude)
+    {
+        if(gettype($exclude) == "string") {
+            unset($array[$exclude]);
+        } else {
+            foreach ($exclude as $key) {
+                unset($array[$key]);
+            }
+        }
+        return $array;
+    }
+}
+
 /*
 if(!function_exists("config")) {
     function config($keyString, $default = "")
