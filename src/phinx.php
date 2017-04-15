@@ -5,34 +5,34 @@ return array(
         "migrations" => env("PHINX_CONFIG_DIR", __DIR__) . "/db/migrations",
         "seeds" => env("PHINX_CONFIG_DIR", __DIR__) . "/db/seeds"
     ],
-    "environments" => [
+    "confiironments" => [
         "default_migration_table" => "phinxlog",
         "default_database" => "development",
         "production" => [
             "adapter" => "mysql",
-            "host" => env("PHINX_DBHOST"),
-            "name" => env("PHINX_DBNAME"),
-            "user" => env("PHINX_DBUSER"),
-            "pass" => env("PHINX_DBPASS"),
-            "port" => env("PHINX_DBPORT"),
+            "host" => config("db.host"),
+            "name" => config("db.name"),
+            "user" => config("db.user"),
+            "pass" => config("db.pass"),
+            "port" => config("db.port"),
             "charset" => "utf8"
         ],
         "development" => [
             "adapter" => "mysql",
-            "host" => env("PHINX_DBHOST"),
-            "name" => env("PHINX_DBNAME"),
-            "user" => env("PHINX_DBUSER"),
-            "pass" => env("PHINX_DBPASS"),
-            "port" => env("PHINX_DBPORT"),
+            "host" => config("db.host"),
+            "name" => config("db.name"),
+            "user" => config("db.user"),
+            "pass" => config("db.pass"),
+            "port" => config("db.port"),
             "charset" => "utf8"
         ],
         "testing" => [
             "adapter" => "mysql",
-            "host" => env("PHINX_DBHOST"),
-            "name" => env("PHINX_DBNAME"),
-            "user" => env("PHINX_DBUSER"),
-            "pass" => env("PHINX_DBPASS"),
-            "port" => env("PHINX_DBPORT"),
+            "host" => config("db.host"),
+            "name" => config("db.name"),
+            "user" => config("db.user"),
+            "pass" => config("db.pass"),
+            "port" => config("db.port"),
             "charset" => "utf8"
         ]
     ],
