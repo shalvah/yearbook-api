@@ -42,3 +42,16 @@ $app->post('/classmates', function (Request $request, Response $response) use ($
 
     return $response->withHeader("Content-Type", "application/json");
 });
+
+$app->put('/classmates/{id}', function (Request $request, Response $response) use ($dbh) {
+    $body = $request->getParsedBody();
+    unset($body["is_verified"]);
+
+    $id = $request->getAttribute("id");
+    $id = Db::table("classmates")->update($body)
+        ->where([["id", "=", $id], ["is_verified", "=", true]])->run();
+
+    $response->getBody()->write(json_encode($id));
+
+    return $response->withHeader("Content-Type", "application/json");
+});

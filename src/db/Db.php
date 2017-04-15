@@ -62,6 +62,23 @@ class Db
         return $this;
     }
 
+    public function update(array $values)
+    {
+        $columnValuesString = [];
+        $this->args = [];
+
+        foreach($values as $key => $item) {
+            $key = self::sanitise($key);
+            $this->args[] = $item;
+            $columnValuesString[] = "$key = ?";
+        }
+
+        $columnValuesString = implode(", ", $columnValuesString);
+        $this->sql = "UPDATE {$this->table} SET $columnValuesString";
+
+        return $this;
+    }
+
     public function get($num = null)
     {
         $num = self::sanitise($num);
