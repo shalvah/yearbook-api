@@ -1,40 +1,33 @@
-<?
+<?php
+
+require_once "app/bootstrap.php";
 
 return array(
-    "paths" => [
-        "migrations" => env("PHINX_CONFIG_DIR", __DIR__) . "/db/migrations",
-        "seeds" => env("PHINX_CONFIG_DIR", __DIR__) . "/db/seeds"
+    'paths' => [
+        'migrations' => env('PHINX_env_DIR', __DIR__) . '/db/migrations',
+        'seeds' => env('PHINX_env_DIR', __DIR__) . '/db/seeds'
     ],
-    "confiironments" => [
-        "default_migration_table" => "phinxlog",
-        "default_database" => env("APP_ENV", "dev"),
-        "prod" => [
-            "adapter" => config("db.conn"),
-            "host" => config("db.host"),
-            "name" => config("db.name"),
-            "user" => config("db.user"),
-            "pass" => config("db.pass"),
-            "port" => config("db.port"),
-            "charset" => "utf8"
+    'environments' => [
+        'default_migration_table' => 'phinxlog',
+        'default_database' => env('APP_ENV', 'dev'),
+        'prod' => [
+            'adapter' => env('DB_CONN', 'mysql'),
+            'host' => env('DB_HOST'),
+            'name' => env('DB_NAME'),
+            'user' => env('DB_USER'),
+            'pass' => env('DB_PASS'),
+            'port' => env('DB_PORT'),
+            'charset' => 'utf8'
         ],
-        "dev" => [
-            "adapter" => config("db.conn"),
-            "host" => config("db.host"),
-            "name" => config("db.name"),
-            "user" => config("db.user"),
-            "pass" => config("db.pass"),
-            "port" => config("db.port"),
-            "charset" => "utf8"
+        'dev' => [
+            'adapter' => env('DB_CONN', 'mysql'),
+            'host' => env('DB_HOST'),
+            'name' => env('DB_NAME'),
+            'user' => env('DB_USER'),
+            'pass' => env('DB_PASS'),
+            'port' => env('DB_PORT'),
+            'charset' => 'utf8'
         ],
-        "testing" => [
-            "adapter" => "mysql",
-            "host" => config("db.host"),
-            "name" => config("db.name"),
-            "user" => config("db.user"),
-            "pass" => config("db.pass"),
-            "port" => config("db.port"),
-            "charset" => "utf8"
-        ]
     ],
-    "version_order" => "creation"
+    'version_order' => 'creation'
 );

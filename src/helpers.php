@@ -1,21 +1,23 @@
 <?php
 
+
 if(!function_exists("env")) {
     function env($key, $default = "")
     {
         $value = getenv($key);
-        if($value) {
+        if(!empty($value)) {
             return $value;
         }
         return $default;
     }
 }
 
+/*
 if(!function_exists("config")) {
     function config($keyString, $default = "")
     {
         $keys = explode(".", $keyString);
-        $config = require_once("config.php");
+        $config = require_once("app/config.php");
 
         $value = $config;
         foreach($keys as $key) {
@@ -28,3 +30,4 @@ if(!function_exists("config")) {
         return $value;
     }
 }
+*/

@@ -2,10 +2,7 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-require '../vendor/autoload.php';
-
-$dotenv = new Dotenv\Dotenv(__DIR__."/../");
-$dotenv->load();
+require __DIR__.'\..\app\bootstrap.php';
 
 $app = new \Slim\App;
 $app->get('/hello/{name}', function (Request $request, Response $response) {
