@@ -79,6 +79,13 @@ class Db
         return $this;
     }
 
+    public function delete()
+    {
+        $this->sql = "DELETE FROM {$this->table}";
+
+        return $this;
+    }
+
     public function get($num = null)
     {
         $num = self::sanitise($num);

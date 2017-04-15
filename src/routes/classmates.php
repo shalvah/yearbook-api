@@ -55,3 +55,13 @@ $app->put('/classmates/{id}', function (Request $request, Response $response) us
 
     return $response->withHeader("Content-Type", "application/json");
 });
+
+$app->delete('/classmates/{id}', function (Request $request, Response $response) use ($dbh) {
+    $id = $request->getAttribute("id");
+    $id = Db::table("classmates")->delete()
+        ->where([["id", "=", $id], ["is_verified", "=", true]])->run();
+
+    $response->getBody()->write(json_encode($id));
+
+    return $response->withHeader("Content-Type", "application/json");
+});
