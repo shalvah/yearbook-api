@@ -49,8 +49,8 @@ class CreateClassmatesTable extends AbstractMigration
             ->addColumn('website', 'string', ['limit' => 50, 'null' => true])
             ->addColumn('blog', 'string', ['limit' => 50, 'null' => true])
 
-            ->addColumn('created', 'datetime')
-            ->addColumn('updated', 'datetime', ['null' => true])
+            ->addColumn('created_at', 'datetime')
+            ->addColumn('updated_at', 'datetime', ['null' => true])
 
             ->addIndex(['email'], ['unique' => true])
             ->create();
