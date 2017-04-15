@@ -21,3 +21,16 @@ $app->get('/classmates', function (Request $request, Response $response) use ($d
     return $response;
 });
 
+
+$app->get('/classmates/{id}', function (Request $request, Response $response) use ($dbh) {
+    $sql = "SELECT * FROM classmates WHERE id = ?";
+    $stmnt = $dbh->prepare($sql);
+    $stmnt->execute([$request->getAttribute("id")]);
+
+    $data = array_except($stmnt->fetch(), ["id", "password", "created_at", "updated_at"]);
+
+    $response->getBody()->write(json_encode($data));
+    $dbh = null;
+
+    return $response;
+});
