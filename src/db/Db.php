@@ -6,6 +6,7 @@ class Db
     private $dbh;
     private $table;
     private $sql;
+    private $args;
 
     //todo: sanitise user input
     public function __construct($table)
@@ -16,12 +17,13 @@ class Db
 
     public static function table($name)
     {
+        $name = self::sanitise($name);
         return new Db($name);
     }
 
     public function select(array $columns = null)
     {
-        $columns = $this->sanitise($columns);
+        $columns = self::sanitise($columns);
         if (empty($columns)) {
             $this->sql = "SELECT * FROM {$this->table}";
         } else {
@@ -35,7 +37,7 @@ class Db
     {
         $optionStrings = [];
         foreach ($options as $option) {
-            $option = $this->sanitise($option);
+            $option = self::sanitise($option);
             $optionStrings[] = implode(" ", $option);
         }
         $this->sql .= " WHERE " . implode(" AND ", $optionStrings);
@@ -43,23 +45,47 @@ class Db
         return $this;
     }
 
+    public function insert(array $values)
+    {
+        $sanitisedValues = [];
+        $this->args = [];
+
+        foreach($values as $key => $item) {
+            $sanitisedValues[self::sanitise($key)] = "?";
+            $this->args[] = $item;
+        }
+
+        $columnsString = implode(", ", array_keys($sanitisedValues));
+        $valuesString = implode(", ", $sanitisedValues);
+        $this->sql = "INSERT INTO {$this->table} ($columnsString) VALUES ($valuesString)";
+
+        return $this;
+    }
+
     public function get($num = null)
     {
-        $num = $this->sanitise($num);
+        $num = self::sanitise($num);
         if ($num) {
             $this->sql .= " LIMIT $num";
         }
         $stmnt = $this->dbh->prepare($this->sql);
         $stmnt->execute();
         return $stmnt->fetchAll();
-
     }
 
-    private function sanitise($input)
+    public function run()
+    {
+        $stmnt = $this->dbh->prepare($this->sql);
+        $stmnt->execute($this->args);
+        return $this->dbh->lastInsertId();
+    }
+
+    private static function sanitise($input)
     {
         if($input == null || $input == "" || $input == []) {
             return $input;
         }
+        return $input;
     }
 
     public function toSql()

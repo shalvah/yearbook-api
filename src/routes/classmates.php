@@ -16,7 +16,7 @@ $app->get('/classmates', function (Request $request, Response $response) use ($d
     $response->getBody()->write(json_encode($data));
     $dbh = null;
 
-    return $response;
+    return $response->withHeader("Content-Type", "application/json");
 });
 
 
@@ -27,7 +27,15 @@ $app->get('/classmates/{id}', function (Request $request, Response $response) us
     $data = array_except($result[0], ["id", "password", "created_at", "updated_at"]);
 
     $response->getBody()->write(json_encode($data));
-    $dbh = null;
 
-    return $response;
+    return $response->withHeader("Content-Type", "application/json");
+});
+
+$app->post('/classmates', function (Request $request, Response $response) use ($dbh) {
+    $body = $request->getParsedBody();
+    $id = Db::table("classmates")->insert($body)->run();
+
+    $response->getBody()->write(json_encode($id));
+
+    return $response->withHeader("Content-Type", "application/json");
 });
